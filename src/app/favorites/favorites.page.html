@@ -1,0 +1,52 @@
+<!-- UI for favorites page -->
+
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- back button -->
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Favorite Pairs</ion-title> <!-- page title -->
+    <ion-buttons slot="end">
+      <!-- delete all favorites -->
+      <ion-button (click)="clearFavorites()" color="danger" *ngIf="favorites.length > 0">
+        <ion-icon name="trash" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- list of favs if there is any -->
+  <ion-list *ngIf="favorites.length > 0">
+    <ion-item-sliding *ngFor="let fav of favorites">
+      <ion-item>
+        <ion-label>
+          <h2>{{ fav.from }} → {{ fav.to }}</h2> <!-- shows pair -->
+          <p>Saved on {{ fav.timestamp | date:'medium' }}</p> <!-- when it was saved -->
+        </ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <!-- delete one fav -->
+        <ion-item-option color="danger" (click)="deleteFavorite(fav.timestamp)">
+          <ion-icon name="trash" slot="icon-only"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- show this if no favs -->
+  <ion-card *ngIf="favorites.length === 0">
+    <ion-card-header>
+      <ion-card-title>No Favorites Yet</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Convert currencies on the home page and click "Save Favorite Pair" to store them here.</p>
+      <ion-button expand="block" (click)="goBack()">
+        Go to Converter
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

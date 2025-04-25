@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!-- back btn -->
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>About</ion-title> <!-- page title -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>About This App</ion-card-title> <!-- card heading -->
+    </ion-card-header>
+    <ion-card-content>
+      <p>This is a currency converter PWA built with:</p>
+      <ul>
+        <li>Ionic 7</li> <!-- ionic stuff -->
+        <li>Angular Standalone Components</li> <!-- new way to build -->
+        <li>Capacitor Plugins</li> <!-- for native stuff -->
+      </ul>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

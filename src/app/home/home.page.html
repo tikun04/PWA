@@ -1,20 +1,72 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Currency Converter</ion-title> <!-- title on top bar -->
+    <ion-buttons slot="end"> <!-- buttons on right -->
+      <ion-button (click)="navigateTo('favorites')">
+        <ion-icon name="star" slot="start"></ion-icon>
+        Favorites
+      </ion-button>
+      <ion-button (click)="navigateTo('about')">
+        <ion-icon name="information-circle" slot="start"></ion-icon>
+        About
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Convert Currency</ion-card-title> <!-- card title -->
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-item>
+        <!-- input how much to convert -->
+        <ion-input type="number" [(ngModel)]="amount" label="Amount" (ionChange)="convert()"></ion-input>
+      </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+      <ion-item>
+        <!-- pick from currency -->
+        <ion-select [(ngModel)]="fromCurrency" (ionChange)="convert()">
+          <ion-select-option *ngFor="let currency of currencies" [value]="currency">
+            {{ currency }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <!-- swap btn -->
+        <ion-button fill="clear" (click)="swapCurrencies()">
+          <ion-icon name="swap-vertical"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <ion-item>
+        <!-- pick to currency -->
+        <ion-select [(ngModel)]="toCurrency" (ionChange)="convert()">
+          <ion-select-option *ngFor="let currency of currencies" [value]="currency">
+            {{ currency }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- do convert -->
+      <ion-button expand="block" (click)="convert()">
+        <ion-icon name="calculator" slot="start"></ion-icon>
+        Convert
+      </ion-button>
+
+      <!-- save favs -->
+      <ion-button expand="block" (click)="saveFavorites()" color="success">
+        <ion-icon name="star" slot="start"></ion-icon>
+        Save Favorite Pair
+      </ion-button>
+
+      <!-- show result -->
+      <ion-item *ngIf="result !== null">
+        <ion-text>{{ amount }} {{ fromCurrency }} = {{ result | number:'1.2-2' }} {{ toCurrency }}</ion-text>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
